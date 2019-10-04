@@ -7,5 +7,6 @@ type Game struct {
 
 type GamePlayer struct {
 	*Player
-	Color Color
+	Color    Color
+	NextTurn *GamePlayer
 }

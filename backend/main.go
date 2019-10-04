@@ -9,12 +9,19 @@ func main() {
 		{false, true, true},
 	}}, Color: Red}
 
-	board := Board{}
-	board.place(0, 0, &piece)
+	piece2 := BoardPiece{Piece: Piece{Cells: [][]bool{
+		{true, false, false},
+		{true, true, false},
+		{false, true, true},
+	}}, Color: Red}
 
-	piece.rotate90()
-	piece.rotate90()
-	err := board.place(0, 2, &piece)
+	board := Board{}
+	board.newBoard()
+	board.place(1, 1, &piece)
+
+	piece2.rotate90()
+	piece2.rotate90()
+	err := board.place(4, 4, &piece2)
 	if err != nil {
 		fmt.Println(err)
 	}

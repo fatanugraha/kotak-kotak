@@ -1,3 +1,4 @@
 package main
 
-type Player struct{}
+type Player struct {
+}

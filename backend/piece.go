@@ -14,6 +14,15 @@ type BoardPiece struct {
 	Rotation Rotation
 }
 
+type Color int
+
+const (
+	Red Color = iota
+	Green
+	Blue
+	Yellow
+)
+
 type Rotation int
 
 const (
