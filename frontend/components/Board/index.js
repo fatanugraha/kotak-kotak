@@ -44,7 +44,7 @@ const Board = () => {
             monitor.getInitialSourceClientOffset()
           );
 
-          const res = isValidPlacement(
+          return isValidPlacement(
             anchorX,
             anchorY,
             board.state,
@@ -52,11 +52,8 @@ const Board = () => {
             remainingPieces === pieceCount,
             item.colorId
           );
-          console.log(res);
-          return res;
         },
         drop: (item, monitor) => {
-          // console.log(item);
           const { x: anchorX, y: anchorY } = getAnchorCoordinate(
             x,
             y,

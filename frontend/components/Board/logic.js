@@ -8,7 +8,15 @@ export const isValidPlacement = (x, y, state, pattern, firstMove, colorId) => {
   }
 
   if (firstMove) {
-    return true;
+    const xx = x + nRow - 1;
+    const yy = y + nCol - 1;
+
+    return (
+      (x === 0 && y === 0) ||
+      (xx === n - 1 && y === 0) ||
+      (x === 0 && yy === n - 1) ||
+      (xx === n - 1 && yy === n - 1)
+    );
   }
 
   let valid = false;
