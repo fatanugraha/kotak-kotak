@@ -26,6 +26,7 @@ const Square = ({
   borderBottom = true,
   borderLeft = true,
   borderRight = true,
+  debug = false,
 }) => {
   return (
     <div
@@ -36,7 +37,9 @@ const Square = ({
         borderBottom,
         borderRight,
       })}
-    >{`${x}, ${y}`}</div>
+    >
+      {debug && `${x}, ${y}`}
+    </div>
   );
 };
 

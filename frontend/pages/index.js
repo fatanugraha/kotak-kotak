@@ -1,5 +1,5 @@
 import Board from "components/Board";
-import Piece from "components/Piece";
+import Pattern from "components/Pattern";
 
 import Patterns from "constants/pieces";
 
@@ -33,7 +33,7 @@ export default function Home() {
                 marginTop: 10,
               }}
             >
-              <Piece color="yellow" pattern={pattern} />
+              <Pattern color="yellow" pattern={pattern} debug />
             </div>
           </div>
         );

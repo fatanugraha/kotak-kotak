@@ -16,7 +16,7 @@ const squareStyle = (nCol) => ({
   width: `${100 / nCol}%`,
 });
 
-const Piece = ({ pattern, color }) => {
+const Piece = ({ pattern, color, debug = false }) => {
   const nRow = pattern.length;
   const nCol = pattern[0].length;
 
@@ -24,19 +24,15 @@ const Piece = ({ pattern, color }) => {
     row.map((cell, y) => {
       const cellColor = cell ? color : "none";
       const border = {
-        borderTop: !!cell,
-        borderLeft: !!cell,
-        borderBottom:
-          !!cell &&
-          (nRow === x + 1 || (x + 1 < nRow && pattern[x + 1][y] === 0)),
-        borderRight:
-          !!cell &&
-          (nCol === y + 1 || (y + 1 < nCol && pattern[x][y + 1] === 0)),
+        borderTop: !!cell || (x > 0 && !!pattern[x - 1][y]),
+        borderLeft: !!cell || (y > 0 && !!pattern[x][y - 1]),
+        borderBottom: !!cell && nRow === x + 1,
+        borderRight: !!cell && nCol === y + 1,
       };
 
       return (
         <div style={squareStyle(nCol)}>
-          <Square x={x} y={y} color={cellColor} {...border} />
+          <Square x={x} y={y} color={cellColor} debug={debug} {...border} />
         </div>
       );
     });
