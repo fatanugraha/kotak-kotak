@@ -1,24 +1,42 @@
 import React from "react";
 
-import * as Color from "constants/colors";
+import * as Colors from "constants/colors";
 
-const Square = ({ height = "100px", width = "100px", color, children }) => {
+const containerStyle = ({
+  color,
+  borderTop,
+  borderBottom,
+  borderLeft,
+  borderRight,
+}) => ({
+  height: "100%",
+  width: "100%",
+  background: color,
+  borderLeft: borderLeft ? `1px solid ${Colors.black}` : "none",
+  borderRight: borderRight ? `1px solid ${Colors.black}` : "none",
+  borderTop: borderTop ? `1px solid ${Colors.black}` : "none",
+  borderBottom: borderBottom ? `1px solid ${Colors.black}` : "none",
+});
+
+const Square = ({
+  color,
+  x,
+  y,
+  borderTop = true,
+  borderBottom = true,
+  borderLeft = true,
+  borderRight = true,
+}) => {
   return (
-    <div className="square">
-      {children}
-      <style jsx>
-        {`
-          .square {
-            box-sizing: border-box;
-            display: inline-flex;
-            background: ${color};
-            width: ${width};
-            height: ${height};
-            border: 1px solid ${Color.black};
-          }
-        `}
-      </style>
-    </div>
+    <div
+      style={containerStyle({
+        color,
+        borderTop,
+        borderLeft,
+        borderBottom,
+        borderRight,
+      })}
+    >{`${x}, ${y}`}</div>
   );
 };
 

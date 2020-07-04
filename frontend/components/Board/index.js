@@ -1,34 +1,12 @@
 import React from "react";
-import * as Color from "constants/colors";
 
-const cellStyle = {
-  border: `0.25px solid ${Color.black}`,
-  borderBottom: "none",
-  borderRight: "none",
-};
+import Piece from "components/Piece";
+import * as Colors from "constants/colors";
 
 const Board = ({ n = 20 }) => {
-  const rows = [...Array(n).keys()].map((rowIdx) => (
-    <tr key={rowIdx} style={{ ...cellStyle }}>
-      {[...Array(n).keys()].map((colIdx) => (
-        <td key={colIdx} style={{ ...cellStyle }}></td>
-      ))}
-    </tr>
-  ));
+  const matrix = [...Array(n).keys()].map(() => Array(n).fill(1));
 
-  return (
-    <table className="table" cellSpacing={0}>
-      <tbody>{rows}</tbody>
-      <style jsx>{`
-        .table {
-          width: 500px;
-          height: 500px;
-          border: 0.5px solid ${Color.black};
-          background: ${Color.white};
-        }
-      `}</style>
-    </table>
-  );
+  return <Piece pattern={matrix} color={Colors.white} />;
 };
 
 export default Board;
