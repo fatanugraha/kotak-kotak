@@ -5,6 +5,7 @@ import Square from "components/Square";
 import * as Colors from "constants/colors";
 import ItemTypes from "constants/itemTypes";
 import { BoardContext } from "contexts/board";
+import { PlayerContext } from "contexts/player";
 
 import { getAnchorCoordinate, isValidPlacement } from "./logic";
 
@@ -25,6 +26,7 @@ const rowStyle = (nRow) => ({
 const Board = () => {
   const debug = true;
   const board = useContext(BoardContext);
+  const player = useContext(PlayerContext);
 
   const renderRow = (row, x) =>
     row.map((cell, y) => {
@@ -50,7 +52,7 @@ const Board = () => {
           return res;
         },
         drop: (item, monitor) => {
-          console.log(item);
+          // console.log(item);
           const { x: anchorX, y: anchorY } = getAnchorCoordinate(
             x,
             y,
@@ -69,6 +71,7 @@ const Board = () => {
             })
           );
           board.setState(newState);
+          player.removePiece(item.id);
         },
       });
 

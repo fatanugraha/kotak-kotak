@@ -14,17 +14,21 @@ const containerStyle = (width, height) => ({
   cursor: "grab",
 });
 
-const Piece = ({ initialPattern, colorId, debug }) => {
+const Piece = ({ id, initialPattern, colorId, debug }) => {
   const board = useContext(BoardContext);
   const [pattern, setPattern] = useState(initialPattern);
   const [rotation, setRotation] = useState(0);
   const [flip, setFlip] = useState(0);
-  const [, dragRef] = useDrag({
+  const [{ isDragging }, dragRef] = useDrag({
     item: {
       type: ItemTypes.PIECE,
+      id,
       colorId,
       pattern,
     },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
   });
 
   const unitLength = board.length / board.n;
@@ -47,9 +51,9 @@ const Piece = ({ initialPattern, colorId, debug }) => {
     setFlip(newFlip);
   };
 
-  // if (isDragging) {
-  //   return <div ref={dragRef} />;
-  // }
+  if (isDragging) {
+    return <div ref={dragRef} />;
+  }
 
   return (
     <div

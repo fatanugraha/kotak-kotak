@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Board from "components/Board";
 import Piece from "components/Piece";
-
-import Patterns from "constants/pieces";
+import { PlayerContext } from "contexts/player";
 
 export default function Home() {
+  const { pieces } = useContext(PlayerContext);
+
   return (
     <div
       style={{
@@ -18,13 +19,16 @@ export default function Home() {
     >
       <Board />
       <div style={{ overflowY: "scroll", maxHeight: "80%", width: "250px" }}>
-        {Patterns.map((pattern, idx) => {
-          return (
-            <div key={idx} style={{ marginBottom: 10 }}>
-              <Piece initialPattern={pattern} colorId={1} debug />
-            </div>
-          );
-        })}
+        {Object.keys(pieces).map((key) => (
+          <div key={key} style={{ marginBottom: 10 }}>
+            <Piece
+              initialPattern={pieces[key]}
+              id={key}
+              colorId={1}
+              debug
+            ></Piece>
+          </div>
+        ))}
       </div>
     </div>
   );

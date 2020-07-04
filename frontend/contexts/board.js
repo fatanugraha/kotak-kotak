@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-export const BoardContext = createContext();
+export const BoardContext = createContext(null);
 
 export const BoardProvider = ({ children, value }) => {
   // TODO: only init on new game
