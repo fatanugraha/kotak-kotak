@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 import Square from "components/Square";
 import * as Colors from "constants/colors";
 import ItemTypes from "constants/itemTypes";
+import { pieceCount } from "constants/pieces";
 import { BoardContext } from "contexts/board";
 import { PlayerContext } from "contexts/player";
 
@@ -27,6 +28,7 @@ const Board = () => {
   const debug = true;
   const board = useContext(BoardContext);
   const player = useContext(PlayerContext);
+  const remainingPieces = Object.keys(player.pieces).length;
 
   const renderRow = (row, x) =>
     row.map((cell, y) => {
@@ -46,7 +48,9 @@ const Board = () => {
             anchorX,
             anchorY,
             board.state,
-            item.pattern
+            item.pattern,
+            remainingPieces === pieceCount,
+            item.colorId
           );
           console.log(res);
           return res;

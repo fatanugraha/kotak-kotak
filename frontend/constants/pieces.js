@@ -1,4 +1,4 @@
-export default [
+const pieces = [
   [[1]],
   [[1, 1]],
   [[1, 1, 1]],
@@ -71,3 +71,7 @@ export default [
     [0, 1, 1],
   ],
 ];
+
+export const pieceCount = pieces.length;
+
+export default pieces;
