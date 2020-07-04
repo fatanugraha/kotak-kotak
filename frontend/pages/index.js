@@ -1,37 +1,31 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import Board from "components/Board";
 import Piece from "components/Piece";
 
 import Patterns from "constants/pieces";
 
-import { BoardContext } from "contexts/board";
-
-const boardContainerStyle = (length) => ({
-  width: `${length}px`,
-  height: `${length}px`,
-});
-
 export default function Home() {
-  const board = useContext(BoardContext);
-  const unitLength = board.length / board.n;
-
   return (
-    <div style={{ margin: 10 }}>
-      <div style={boardContainerStyle(board.length)}>
-        <Board />
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        margin: 10,
+        width: "90%",
+        maxHeight: "90vh",
+      }}
+    >
+      <Board />
+      <div style={{ overflowY: "scroll", maxHeight: "80%", width: "250px" }}>
+        {Patterns.map((pattern, idx) => {
+          return (
+            <div key={idx} style={{ marginBottom: 10 }}>
+              <Piece initialPattern={pattern} colorId={1} debug />
+            </div>
+          );
+        })}
       </div>
-      <br />
-      {Patterns.map((pattern) => {
-        const width = pattern[0].length * unitLength;
-        const height = pattern.length * unitLength;
-
-        return (
-          <div style={{ marginBottom: 10 }}>
-            <Piece initialPattern={pattern} color="yellow" debug />
-          </div>
-        );
-      })}
     </div>
   );
 }

@@ -16,6 +16,7 @@ const containerStyle = ({
   borderRight: borderRight ? `1px solid ${Colors.black}` : "none",
   borderTop: borderTop ? `1px solid ${Colors.black}` : "none",
   borderBottom: borderBottom ? `1px solid ${Colors.black}` : "none",
+  userSelect: "none",
 });
 
 const Square = ({

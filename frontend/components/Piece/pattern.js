@@ -7,13 +7,13 @@ const containerStyle = {
   width: "100%",
 };
 
+const cellStyle = (nCol) => ({
+  width: `${100 / nCol}%`,
+});
+
 const rowStyle = (nRow) => ({
   display: "flex",
   height: `${100 / nRow}%`,
-});
-
-const squareStyle = (nCol) => ({
-  width: `${100 / nCol}%`,
 });
 
 const Piece = ({ pattern, color, debug = false }) => {
@@ -31,15 +31,15 @@ const Piece = ({ pattern, color, debug = false }) => {
       };
 
       return (
-        <div style={squareStyle(nCol)}>
+        <div key={`${x}-${y}`} style={cellStyle(nCol)}>
           <Square x={x} y={y} color={cellColor} debug={debug} {...border} />
         </div>
       );
     });
 
-  const rows = pattern.map((row, colIdx) => (
-    <div key={colIdx} style={rowStyle(nRow)}>
-      {renderRow(row, colIdx)}
+  const rows = pattern.map((row, x) => (
+    <div key={x} style={rowStyle(nRow)}>
+      {renderRow(row, x)}
     </div>
   ));
 

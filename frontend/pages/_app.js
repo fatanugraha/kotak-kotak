@@ -7,7 +7,7 @@ import { BoardProvider } from "contexts/board";
 import "assets/css/reset.css";
 
 const board = {
-  length: 1000,
+  length: 800,
   n: 20,
 };
 

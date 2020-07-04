@@ -9,3 +9,7 @@ export const rotate90 = (matrix) => {
     );
   });
 };
+
+export const flipVertical = (matrix) => {
+  return matrix.reverse((acc, arr) => [arr, ...acc], []);
+};
