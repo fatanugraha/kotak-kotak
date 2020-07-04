@@ -1,4 +1,4 @@
-const rotate90 = (matrix) => {
+export const rotate90 = (matrix) => {
   if (matrix.length < 1) {
     return matrix;
   }

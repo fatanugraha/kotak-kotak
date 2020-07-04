@@ -1,40 +1,34 @@
+import React, { useContext } from "react";
+
 import Board from "components/Board";
-import Pattern from "components/Pattern";
+import Piece from "components/Piece";
 
 import Patterns from "constants/pieces";
 
-const N_BOARD = 20;
+import { BoardContext } from "contexts/board";
 
-const BOARD_LENGTH = 1000;
-
-const UNIT_SQUARE_LENGTH = BOARD_LENGTH / N_BOARD;
-
-const boardContainerStyle = {
-  width: `${BOARD_LENGTH}px`,
-  height: `${BOARD_LENGTH}px`,
-};
+const boardContainerStyle = (length) => ({
+  width: `${length}px`,
+  height: `${length}px`,
+});
 
 export default function Home() {
+  const board = useContext(BoardContext);
+  const unitLength = board.length / board.n;
+
   return (
     <div style={{ margin: 10 }}>
-      <div style={boardContainerStyle}>
+      <div style={boardContainerStyle(board.length)}>
         <Board />
       </div>
+      <br />
       {Patterns.map((pattern) => {
-        const width = pattern[0].length * UNIT_SQUARE_LENGTH;
-        const height = pattern.length * UNIT_SQUARE_LENGTH;
+        const width = pattern[0].length * unitLength;
+        const height = pattern.length * unitLength;
 
         return (
           <div style={{ marginBottom: 10 }}>
-            <div
-              style={{
-                width: `${width}px`,
-                height: `${height}px`,
-                marginTop: 10,
-              }}
-            >
-              <Pattern color="yellow" pattern={pattern} debug />
-            </div>
+            <Piece initialPattern={pattern} color="yellow" debug />
           </div>
         );
       })}
