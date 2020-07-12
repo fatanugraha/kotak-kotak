@@ -1,22 +1,12 @@
-import React, { useContext } from "react";
-import { useDrop } from "react-dnd";
+import React from "react";
 
-import Square from "components/Square";
-import * as Colors from "constants/colors";
-import ItemTypes from "constants/itemTypes";
-import { pieceCount } from "constants/pieces";
-import { BoardContext } from "contexts/board";
-import { PlayerContext } from "contexts/player";
+import { useImageLength, useBoardLength } from "lib/hooks/board";
 
-import { getAnchorCoordinate, isValidPlacement } from "./logic";
+import Cell from "./Cell";
 
 const containerStyle = (length) => ({
   width: `${length}px`,
   height: `${length}px`,
-});
-
-const cellStyle = (nCol) => ({
-  width: `${100 / nCol}%`,
 });
 
 const rowStyle = (nRow) => ({
@@ -25,77 +15,20 @@ const rowStyle = (nRow) => ({
 });
 
 const Board = () => {
-  const debug = true;
-  const board = useContext(BoardContext);
-  const player = useContext(PlayerContext);
-  const remainingPieces = Object.keys(player.pieces).length;
+  const boardImageLength = useImageLength();
+  const boardLength = useBoardLength();
 
-  const renderRow = (row, x) =>
-    row.map((cell, y) => {
-      const [, dropRef] = useDrop({
-        accept: ItemTypes.PIECE,
-        canDrop: (item, monitor) => {
-          const { x: anchorX, y: anchorY } = getAnchorCoordinate(
-            x,
-            y,
-            board.length,
-            board.n,
-            monitor.getInitialClientOffset(),
-            monitor.getInitialSourceClientOffset()
-          );
-
-          return isValidPlacement(
-            anchorX,
-            anchorY,
-            board.state,
-            item.pattern,
-            remainingPieces === pieceCount,
-            item.colorId
-          );
-        },
-        drop: (item, monitor) => {
-          const { x: anchorX, y: anchorY } = getAnchorCoordinate(
-            x,
-            y,
-            board.length,
-            board.n,
-            monitor.getInitialClientOffset(),
-            monitor.getInitialSourceClientOffset()
-          );
-
-          const newState = board.state.map((row) => [...row]);
-          item.pattern.forEach((row, px) =>
-            row.forEach((cell, py) => {
-              if (!!cell) {
-                newState[anchorX + px][anchorY + py] = item.colorId;
-              }
-            })
-          );
-          board.setState(newState);
-          player.removePiece(item.id);
-        },
-      });
-
-      const cellColor = Colors.state[cell];
-      const border = {
-        borderRight: board.n === y + 1,
-        borderBottom: board.n === x + 1,
-      };
-
-      return (
-        <div ref={dropRef} key={`${x}-${y}`} style={cellStyle(board.n)}>
-          <Square x={x} y={y} color={cellColor} debug={debug} {...border} />
+  return (
+    <div style={containerStyle(boardLength)}>
+      {[...Array(boardImageLength)].map((_, x) => (
+        <div key={x} style={rowStyle(boardImageLength)}>
+          {[...Array(boardImageLength)].map((_, y) => (
+            <Cell x={x} y={y} />
+          ))}
         </div>
-      );
-    });
-
-  const rows = board.state.map((row, x) => (
-    <div key={x} style={rowStyle(board.n)}>
-      {renderRow(row, x)}
+      ))}
     </div>
-  ));
-
-  return <div style={containerStyle(board.length)}>{rows}</div>;
+  );
 };
 
 export default Board;

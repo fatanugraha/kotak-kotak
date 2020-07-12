@@ -1,39 +1,13 @@
-import React, { useContext, useState } from "react";
-import { useDrag } from "react-dnd";
+import React, { useState } from "react";
 
-import * as Colors from "constants/colors";
-import ItemTypes from "constants/itemTypes";
-import { BoardContext } from "contexts/board";
 import { flipVertical, rotate90 } from "utils/matrix";
 
-import Pattern from "./pattern";
-
-const containerStyle = (width, height) => ({
-  width: `${width}px`,
-  height: `${height}px`,
-  cursor: "grab",
-});
+import Pattern from "./Pattern";
 
 const Piece = ({ id, initialPattern, colorId, debug }) => {
-  const board = useContext(BoardContext);
   const [pattern, setPattern] = useState(initialPattern);
   const [rotation, setRotation] = useState(0);
   const [flip, setFlip] = useState(0);
-  const [{ isDragging }, dragRef] = useDrag({
-    item: {
-      type: ItemTypes.PIECE,
-      id,
-      colorId,
-      pattern,
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const unitLength = board.length / board.n;
-  const width = pattern[0].length * unitLength;
-  const height = pattern.length * unitLength;
 
   const onClick = () => {
     const newPattern = rotate90(pattern);
@@ -51,19 +25,15 @@ const Piece = ({ id, initialPattern, colorId, debug }) => {
     setFlip(newFlip);
   };
 
-  if (isDragging) {
-    return <div ref={dragRef} />;
-  }
-
   return (
-    <div
-      ref={dragRef}
+    <Pattern
+      colorId={colorId}
+      debug={debug}
+      id={id}
       onClick={onClick}
-      onContextMenu={onRightClick}
-      style={containerStyle(width, height)}
-    >
-      <Pattern color={Colors.state[colorId]} pattern={pattern} debug={debug} />
-    </div>
+      onRightClick={onRightClick}
+      pattern={pattern}
+    />
   );
 };
 

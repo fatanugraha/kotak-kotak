@@ -1,4 +1,29 @@
-export const isValidPlacement = (x, y, state, pattern, firstMove, colorId) => {
+import { pieceCount } from "constants/pieces";
+
+export const getAnchorPosition = (
+  x,
+  y,
+  offset,
+  sourceOffset,
+  boardLength,
+  imageLength
+) => {
+  const anchorX =
+    x - Math.floor((offset.y - sourceOffset.y) / (boardLength / imageLength));
+  const anchorY =
+    y - Math.floor((offset.x - sourceOffset.x) / (boardLength / imageLength));
+
+  return { x: anchorX, y: anchorY };
+};
+
+export const validatePlacement = (
+  x,
+  y,
+  state,
+  pattern,
+  remainingCount,
+  colorId
+) => {
   const n = state.length;
   const nCol = pattern[0].length;
   const nRow = pattern.length;
@@ -7,7 +32,7 @@ export const isValidPlacement = (x, y, state, pattern, firstMove, colorId) => {
     return false;
   }
 
-  if (firstMove) {
+  if (remainingCount === pieceCount) {
     const xx = x + nRow - 1;
     const yy = y + nCol - 1;
 
@@ -57,26 +82,4 @@ export const isValidPlacement = (x, y, state, pattern, firstMove, colorId) => {
   }
 
   return valid;
-};
-
-export const getAnchorCoordinate = (
-  cellX,
-  cellY,
-  length,
-  n,
-  initialClientOffset,
-  initialSourceClientOffset
-) => {
-  const pieceX = Math.floor(
-    (initialClientOffset.y - initialSourceClientOffset.y) / (length / n)
-  );
-
-  const pieceY = Math.floor(
-    (initialClientOffset.x - initialSourceClientOffset.x) / (length / n)
-  );
-
-  return {
-    x: cellX - pieceX,
-    y: cellY - pieceY,
-  };
 };
