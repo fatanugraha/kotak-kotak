@@ -2,6 +2,9 @@ import React from "react";
 
 import Board from "components/Board";
 import Sack from "components/Sack";
+import { initBoard } from "lib/actions/board";
+import { initPlayer } from "lib/actions/player";
+import { wrapper } from "lib/store";
 
 export default function Home() {
   return (
@@ -26,3 +29,10 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async ({ store }) => {
+    store.dispatch(initBoard());
+    store.dispatch(initPlayer({ colorId: 1 }));
+  }
+);

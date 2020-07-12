@@ -9,7 +9,7 @@ const appReducers = combineReducers({ board, player });
 const rootReducer = (state, action) => {
   switch (action.type) {
     case HYDRATE:
-      return state.merge(action.payload);
+      return { ...state, ...action.payload };
     default:
       return appReducers(state, action);
   }

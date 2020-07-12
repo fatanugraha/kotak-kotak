@@ -4,7 +4,6 @@ import { useDrag } from "react-dnd";
 import Square from "components/Square";
 import * as Colors from "constants/colors";
 import ItemTypes from "constants/itemTypes";
-import { unitLength } from "constants/pieces";
 import { useBoardLength, useImageLength } from "lib/hooks/board";
 
 const containerStyle = (width, height) => ({
@@ -49,12 +48,12 @@ const Piece = ({
 
   const color = Colors.state[colorId];
 
-  const unitLength = boardLength / imageLength;
-  const width = pattern[0].length * unitLength;
-  const height = pattern.length * unitLength;
-
   const nRow = pattern.length;
   const nCol = pattern[0].length;
+
+  const unitLength = boardLength / imageLength;
+  const width = nCol * unitLength;
+  const height = nRow * unitLength;
 
   const renderRow = (row, x) =>
     row.map((cell, y) => {

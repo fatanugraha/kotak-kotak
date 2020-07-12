@@ -37,10 +37,10 @@ export const validatePlacement = (
     const yy = y + nCol - 1;
 
     return (
-      (x === 0 && y === 0) ||
-      (xx === n - 1 && y === 0) ||
-      (x === 0 && yy === n - 1) ||
-      (xx === n - 1 && yy === n - 1)
+      (x === 0 && y === 0 && !!pattern[0][0]) ||
+      (xx === n - 1 && y === 0 && !!pattern[nRow - 1][0]) ||
+      (x === 0 && yy === n - 1 && !!pattern[0][nCol - 1]) ||
+      (xx === n - 1 && yy === n - 1 && !!pattern[nRow - 1][nCol - 1])
     );
   }
 

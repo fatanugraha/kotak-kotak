@@ -11,7 +11,7 @@ const initialState = {
 
 export default createReducer(initialState, {
   [initBoard]: (state) => {
-    state.image = [...Array(N).fill(Array(N).fill(0))];
+    state.image = [...Array(N).keys()].map(() => [...Array(N).keys()].fill(0));
   },
   [setPiece]: (state, action) => {
     const { x, y, pattern, colorId } = action.payload;

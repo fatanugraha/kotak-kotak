@@ -13,10 +13,11 @@ const cellStyle = (nCol) => ({
 });
 
 const Cell = ({ x, y }) => {
-  const debug = true;
   const dispatch = useDispatch();
   const state = useCellState(x, y);
   const boardLength = useImageLength();
+
+  const debug = false;
 
   const [, dropRef] = useDrop({
     accept: ItemTypes.PIECE,

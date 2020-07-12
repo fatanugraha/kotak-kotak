@@ -28,7 +28,6 @@ const Sack = () => {
             id={pieceIds[idx]}
             initialPattern={piece}
             key={pieceIds[idx]}
-            debug
           />
         </div>
       ))}
